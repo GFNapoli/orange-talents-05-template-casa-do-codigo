@@ -16,14 +16,13 @@ public class Author {
 	private String name;
 	private String email;
 	private String description;
-	private LocalDateTime registrationTime;
+	private LocalDateTime registrationTime = LocalDateTime.now();
 	
-	public Author(String name, String email, String description, LocalDateTime registrationTime) {
+	public Author(String name, String email, String description) {
 		
 		this.name = name;
 		this.email = email;
 		this.description = description;
-		this.registrationTime = registrationTime;
 	}
 
 	public Long getId() {

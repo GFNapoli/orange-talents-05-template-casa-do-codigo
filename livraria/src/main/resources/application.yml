@@ -1,0 +1,21 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        hikari:
+            data-source-properties:
+                pool-name: postgres
+            maximum-pool-size: 10
+        password: 12345678
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: gustavo
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                temp:
+                    use_jdbc_metadata_defaults: false
+        show-sql: true
