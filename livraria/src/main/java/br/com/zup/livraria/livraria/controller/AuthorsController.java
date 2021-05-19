@@ -1,5 +1,6 @@
 package br.com.zup.livraria.livraria.controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class AuthorsController {
 	private AuthorRepository authorRepository;
 
 	@PostMapping
+	@Transactional
 	public ResponseEntity<AuthorDto> register(@RequestBody @Valid AuthorForm form) {
 		
 		Author author = form.converter();
