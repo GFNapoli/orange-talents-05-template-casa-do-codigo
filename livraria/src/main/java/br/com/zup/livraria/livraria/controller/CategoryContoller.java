@@ -12,34 +12,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zup.livraria.livraria.config.exception.PreventDuplicateEmail;
-import br.com.zup.livraria.livraria.controller.dto.AuthorDto;
-import br.com.zup.livraria.livraria.controller.form.AuthorForm;
-import br.com.zup.livraria.livraria.entity.Author;
-import br.com.zup.livraria.livraria.repository.AuthorRepository;
+import br.com.zup.livraria.livraria.controller.form.CategoryForm;
+import br.com.zup.livraria.livraria.entity.Category;
+import br.com.zup.livraria.livraria.repository.CategoryRepository;
+import br.com.zup.livraria.livraria.config.exception.PreventDuplicateName;
+import br.com.zup.livraria.livraria.controller.dto.CategoryDto;
 
 @RestController
-@RequestMapping("/author")
-public class AuthorsController {
+@RequestMapping("/category")
+public class CategoryContoller {
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Autowired
-	private AuthorRepository authorRepository;
-	
-	@Autowired
-	private PreventDuplicateEmail duplicateEmail;
+	private PreventDuplicateName duplicateName;
 	
 	@InitBinder
 	public void checksEmail(WebDataBinder dataBinder) {
-		dataBinder.addValidators(duplicateEmail);
+		dataBinder.addValidators(duplicateName);
 	}
-
+	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<AuthorDto> register(@RequestBody @Valid AuthorForm form) {
+	public ResponseEntity<CategoryDto> newCategory(@RequestBody @Valid CategoryForm form){
 		
-		Author author = form.converter();
-		authorRepository.save(author);
+		Category category = form.convert();
+		categoryRepository.save(category);
 		
 		return ResponseEntity.ok().build();
 	}
+	
 }

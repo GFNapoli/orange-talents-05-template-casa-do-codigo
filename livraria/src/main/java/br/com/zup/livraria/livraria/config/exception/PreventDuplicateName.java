@@ -7,19 +7,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import br.com.zup.livraria.livraria.controller.form.AuthorForm;
-import br.com.zup.livraria.livraria.entity.Author;
-import br.com.zup.livraria.livraria.repository.AuthorRepository;
+import br.com.zup.livraria.livraria.controller.form.CategoryForm;
+import br.com.zup.livraria.livraria.entity.Category;
+import br.com.zup.livraria.livraria.repository.CategoryRepository;
 
 @Component
-public class PreventDuplicateEmail implements Validator{
+public class PreventDuplicateName implements Validator{
 
 	@Autowired
-	private AuthorRepository repository;
+	private CategoryRepository repository;
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return AuthorForm.class.isAssignableFrom(clazz);
+		return CategoryForm.class.isAssignableFrom(clazz);
 	}
 
 	@Override
@@ -28,13 +28,13 @@ public class PreventDuplicateEmail implements Validator{
 			return;
 		}
 		
-		AuthorForm request = (AuthorForm)target;
-		Optional<Author> valid = repository.findByEmail(request.getEmail());
+		CategoryForm form = (CategoryForm) target;
+		Optional<Category> valid = repository.findByName(form.getName());
 		
 		if(valid.isPresent()) {
-			errors.rejectValue("email", "400", "E-mail já cadastrado!");
+			errors.rejectValue("Name", "400", "Categoria já cadastrada!");
 		}
+		
 	}
-
 
 }
