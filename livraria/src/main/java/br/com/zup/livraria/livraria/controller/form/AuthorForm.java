@@ -18,6 +18,7 @@ public class AuthorForm {
 	@Length(max = 400)
 	private String description;
 	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,6 +29,18 @@ public class AuthorForm {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public Author converter() {
