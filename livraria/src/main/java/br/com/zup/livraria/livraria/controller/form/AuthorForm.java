@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.zup.livraria.livraria.entity.Author;
+import br.com.zup.livraria.livraria.notation.UniqueValue;
 
 public class AuthorForm {
 
@@ -13,6 +14,7 @@ public class AuthorForm {
 	private String name;
 	@NotBlank 
 	@Email
+	@UniqueValue(domainClass = Author.class, fieldName = "email")
 	private String email;
 	@NotBlank 
 	@Length(max = 400)
