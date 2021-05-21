@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,6 +42,8 @@ public class Book {
 	@NotBlank
 	private String isbn;
 	
+	@NotNull
+	@Future
 	private LocalDate releaseDate;
 	
 	@NotNull

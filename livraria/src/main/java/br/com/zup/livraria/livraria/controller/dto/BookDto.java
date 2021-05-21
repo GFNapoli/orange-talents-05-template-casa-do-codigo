@@ -1,13 +1,15 @@
 package br.com.zup.livraria.livraria.controller.dto;
 
+import br.com.zup.livraria.livraria.entity.Book;
+
 public class BookDto {
 
 	private Long id;
 	private String title;
 	
-	public BookDto(Long id, String title) {
-		this.id = id;
-		this.title = title;
+	public BookDto(Book book) {
+		this.id = book.getId();
+		this.title = book.getTitle();
 	}
 	
 	public Long getId() {
