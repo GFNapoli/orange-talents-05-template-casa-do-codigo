@@ -1,16 +1,21 @@
 package br.com.zup.livraria.livraria.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import br.com.zup.livraria.livraria.controller.dto.BookDto;
 import br.com.zup.livraria.livraria.controller.form.BookForm;
 import br.com.zup.livraria.livraria.entity.Author;
 import br.com.zup.livraria.livraria.entity.Book;
@@ -43,5 +48,15 @@ public class BookController {
 		repository.save(book);
 		return ResponseEntity.ok().build();
 		
+	}
+	
+	@GetMapping
+	public List<BookDto> bookList(){
+		
+		List<BookDto> listOfBooks = new ArrayList<>();
+		Iterable<Book> books = repository.findAll();
+		books.forEach(book -> listOfBooks.add(new BookDto(book.getId(), book.getTitle())));
+		
+		return listOfBooks;
 	}
 }
