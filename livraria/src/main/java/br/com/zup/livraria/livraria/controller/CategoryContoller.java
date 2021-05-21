@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.zup.livraria.livraria.controller.form.CategoryForm;
 import br.com.zup.livraria.livraria.entity.Category;
 import br.com.zup.livraria.livraria.repository.CategoryRepository;
-import br.com.zup.livraria.livraria.controller.dto.CategoryDto;
 
 @RestController
 @RequestMapping("/category")
@@ -24,7 +23,7 @@ public class CategoryContoller {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<CategoryDto> newCategory(@RequestBody @Valid CategoryForm form){
+	public ResponseEntity<?> newCategory(@RequestBody @Valid CategoryForm form){
 		
 		Category category = form.convert();
 		categoryRepository.save(category);

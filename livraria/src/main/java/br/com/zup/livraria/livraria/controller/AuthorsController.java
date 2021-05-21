@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zup.livraria.livraria.controller.dto.AuthorDto;
 import br.com.zup.livraria.livraria.controller.form.AuthorForm;
 import br.com.zup.livraria.livraria.entity.Author;
 import br.com.zup.livraria.livraria.repository.AuthorRepository;
@@ -24,7 +23,7 @@ public class AuthorsController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<AuthorDto> register(@RequestBody @Valid AuthorForm form) {
+	public ResponseEntity<?> register(@RequestBody @Valid AuthorForm form) {
 		
 		Author author = form.converter();
 		authorRepository.save(author);
