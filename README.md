@@ -8,7 +8,7 @@
 - [x] Listar livros
 - [x] Detalhes do livro
 - [x] Cadastro de pais e estado do pais
-- [] Começo do fluxo de pagamento
+- [ ] Começo do fluxo de pagamento
 
 # As restrições
 
