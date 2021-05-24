@@ -10,18 +10,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = UniqueValueValidator.class)
-@Target({ ElementType.FIELD, ElementType.PARAMETER})
+@Constraint(validatedBy = DocumentValidationValidator.class)
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueValue {
+public @interface DocumentValidation {
 
-	String message() default "O valor já existe na tabela!";
+	String message() default "Documento invalido!";
 	
 	Class<?>[] groups() default {};
 	
 	Class<? extends Payload>[] payload() default {};
-	
-	String fieldName();
-	
-	Class<?> domainClass();
 }
