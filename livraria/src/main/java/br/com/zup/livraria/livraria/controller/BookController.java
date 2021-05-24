@@ -2,8 +2,8 @@ package br.com.zup.livraria.livraria.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
+import br.com.zup.livraria.livraria.config.exception.BookStoreRequestException;
 import br.com.zup.livraria.livraria.controller.dto.BookDto;
 import br.com.zup.livraria.livraria.controller.dto.DetailsBook;
 import br.com.zup.livraria.livraria.controller.form.BookForm;
@@ -39,13 +39,14 @@ public class BookController {
 	private BookRepository repository;
 	
 	@PostMapping 
+	@Transactional
 	public ResponseEntity<?> registerBook(@RequestBody @Valid BookForm form){
 			
 		Author author = authorRepository.findById(form.getAuthor()).orElseThrow(
-				() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Author não cadastrado"));				
+				() -> new BookStoreRequestException("Autor não cadastrado", HttpStatus.NOT_FOUND));				
 	
 		Category category = categoryRepository.findById(form.getCategory()).orElseThrow(
-				() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Categoria não cadastrado"));
+				() -> new BookStoreRequestException("Categoria não cadastrado", HttpStatus.NOT_FOUND));
 		
 		Book book = form.convert(author, category);
 		repository.save(book);
@@ -65,11 +66,10 @@ public class BookController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<DetailsBook> detail(@PathVariable Long id){
-		Optional<Book> book = repository.findById(id);
+		Book book = repository.findById(id).orElseThrow(
+				() -> new BookStoreRequestException("Livro não cadastrado",HttpStatus.NOT_FOUND));
 		
-		if(book.isPresent()) {
-			return ResponseEntity.ok(new DetailsBook(book.get()));
-		}
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(new DetailsBook(book));
+
 	}
 }
