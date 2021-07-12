@@ -11,7 +11,6 @@ public class DocumentValidationValidator implements ConstraintValidator<Document
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		String document = converter(value);
-		System.out.println("gustavo -> "+document.length());
 		if(document.length() == 11){
 			return cpf(document);
 		}
@@ -35,8 +34,6 @@ public class DocumentValidationValidator implements ConstraintValidator<Document
 			return false;
 		}
 		
-		System.out.println("Aqui gustavo");
-		
 		int validType1=0, validType2=0, rest=0;
 		int digitCpf;
 		
@@ -58,7 +55,6 @@ public class DocumentValidationValidator implements ConstraintValidator<Document
 		
 		validType2 += validType1*2;
 		rest = validType2 % 11;
-		System.out.println("resto = "+validType2);
 		if(rest < 2) {
 			validType2 = 0;
 		}else {
@@ -67,7 +63,6 @@ public class DocumentValidationValidator implements ConstraintValidator<Document
 		
 		String verifyingDigit = cpf.substring(cpf.length()-2, cpf.length());
 		String calculatedType = String.valueOf(validType1) + String.valueOf(validType2);
-		System.out.println("gustavo => "+calculatedType +" = " + verifyingDigit );
 		
 		return verifyingDigit.equals(calculatedType);	
 	}

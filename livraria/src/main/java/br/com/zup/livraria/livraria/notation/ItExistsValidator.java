@@ -26,14 +26,14 @@ public class ItExistsValidator implements ConstraintValidator<ItExist, Object>{
 	
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		
+				
 		Query query = manager.createQuery("select 1 from "+klass.getName()+" where "+domainAttribute+"=:value");
 		query.setParameter("value", value);
 		List<?> list = query.getResultList();
-		System.out.println("gustavo -> " + list.isEmpty());
 		Assert.state(list.size() <= 1 , "Foi encontrado "+query.getResultList()+" da tabela "+klass.getName());
 		
 		return !list.isEmpty();
+
 	}
 
 }
